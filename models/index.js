@@ -37,6 +37,7 @@ db.Sequelize = Sequelize;
 db.user=require("../models/Users")(sequelize,Sequelize);
 db.role=require("../models/Role")(sequelize,Sequelize);
 
+
 db.role.belongsToMany(db.user,{
   through: "user_roles",
   foreignKey: "roleId",
