@@ -52,4 +52,13 @@ db.user.belongsToMany(db.role,{
 
 db.ROLES=["user","admin","prestataire", "client"];
 
+
+//Price and service association
+db.services=require("../models/Service")(sequelize,Sequelize);
+db.price=require("../models/Price")(sequelize,Sequelize);
+
+db.price.belongsTo(db.services,{foreignKey:'service',targetKey:'id_service'});
+db.services.hasOne(db.price, {foreignKey: 'service', targetKey: 'id_service'});
+
+
 module.exports = db;

@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
+require("./routes/services.routes")(app);
 
 db.sequelize.sync().then(() => {
     app.listen(9000,()=> {
@@ -25,24 +26,5 @@ db.sequelize.sync().then(() => {
 
 })
 function initial() {
-    Role.create({
-        id: 1,
-        name: "user"
-    });
 
-    Role.create({
-        id: 2,
-        name: "client"
-    });
-
-    Role.create({
-        id: 3,
-        name: "prestatire"
-    });
-
-
-    Role.create({
-        id: 4,
-        name: "admin"
-    });
 }
