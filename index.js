@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
 require("./routes/services.routes")(app);
+require("./routes/commande.routes")(app);
 
 db.sequelize.sync().then(() => {
     app.listen(9000,()=> {

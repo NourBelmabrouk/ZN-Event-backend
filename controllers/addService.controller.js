@@ -91,5 +91,5 @@ exports.deleteService=(req,res)=>{
                 });
             });
     })
-}
+};
 

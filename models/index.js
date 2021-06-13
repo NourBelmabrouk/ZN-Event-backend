@@ -63,4 +63,15 @@ db.services.hasOne(db.price, {foreignKey: 'service', targetKey: 'id_service'});
 db.user.hasMany(db.services,{as: "services"});
 db.services.belongsTo(db.user,{foreignKey: "UserId" , as:"user"});
 
+//Commande , Service , Client
+
+db.commande=require("../models/Commande")(sequelize,Sequelize);
+
+db.commande.belongsTo(db.services,{foreignKey:'service',targetKey:'id_service'});
+db.services.hasOne(db.commande, {foreignKey: 'service', targetKey: 'id_service'});
+
+db.commande.belongsTo(db.user,{foreignKey:'client',targetKey:'id'});
+db.user.hasOne(db.commande, {foreignKey: 'client', targetKey: 'id'});
+
+
 module.exports = db;
