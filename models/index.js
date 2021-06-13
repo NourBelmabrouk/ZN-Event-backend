@@ -60,5 +60,7 @@ db.price=require("../models/Price")(sequelize,Sequelize);
 db.price.belongsTo(db.services,{foreignKey:'service',targetKey:'id_service'});
 db.services.hasOne(db.price, {foreignKey: 'service', targetKey: 'id_service'});
 
+db.user.hasMany(db.services,{as: "services"});
+db.services.belongsTo(db.user,{foreignKey: "UserId" , as:"user"});
 
 module.exports = db;

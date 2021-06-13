@@ -27,14 +27,14 @@ exports.signup=(req,res)=>{
                 }).then(roles =>{
                     user.setRoles(roles).then(()=>{
                         res.send({
-                            message: "User was registered successfully!"
+                            message: "L'utilisateur a été enregistré avec succès! "
                         });
                     });
                 });
             } else{
                 user.setRoles([1]).then(()=>{
                     res.send({
-                        message: "User was registered successfully!(with user as default role)."
+                        message: "L'utilisateur a été enregistré avec succès!"
                     });
                 });
             }

@@ -10,5 +10,7 @@ module.exports=function (app) {
     });
     app.post("/api/service/add", controller.addService);
     app.get("/api/service/findAll",controller.findAll);
+    app.post("/api/service/findServiceById",controller.findServicesById);
+    app.post("/api/service/deleteServiceById",controller.deleteService);
 
 }

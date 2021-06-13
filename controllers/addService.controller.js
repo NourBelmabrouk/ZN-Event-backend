@@ -2,6 +2,7 @@ const db=require("../models");
 const config=require("../config/auth.config");
 const Service=db.services;
 const Price=db.price;
+const  User=db.user;
 
 exports.addService=(req,res)=>{
     var service;
@@ -15,7 +16,8 @@ exports.addService=(req,res)=>{
         intervention:req.body.intervention,
         surface:req.body.surface,
         capacity:req.body.capacity,
-        foodType:req.body.foodType
+        foodType:req.body.foodType,
+        UserId:req.body.userId
     })
         .then(createdService=>{
             service=createdService;
@@ -38,7 +40,7 @@ exports.addService=(req,res)=>{
 }
 exports.findAll = (req, res) => {
     Service.findAll({
-        attributes: ['id_service','type', 'nom', 'adresse', 'code_postal', 'ville', 'Description','intervention' ,'surface', 'capacity','foodType'],
+        attributes: ['id_service','type', 'nom', 'adresse', 'code_postal', 'ville', 'Description','intervention' ,'surface', 'capacity','foodType','UserId'],
         include: [{
             model: Price,
             where: { service : db.Sequelize.col('Service.id_service') },
@@ -46,6 +48,48 @@ exports.findAll = (req, res) => {
         }]
     }).then(services => {
         res.send(services);
+    }).catch(err =>{
+        res.status(500).send({
+            message:err.message
+        });
     });
-
 };
+
+
+exports.findServicesById = (req, res) => {
+    Service.findAll({
+        attributes: ['id_service','type', 'nom', 'adresse', 'code_postal', 'ville', 'Description','intervention' ,'surface', 'capacity','foodType','UserId'],
+        include: [{
+            model: Price,
+            where: { service : db.Sequelize.col('Service.id_service') },
+            attributes: ['morning', 'evening','full_day','night']
+        }],where: {
+            UserId: req.body.userId
+        }
+    }).then(services => {
+        res.send(services);
+    }).catch(err =>{
+        res.status(500).send({
+            message:err.message
+        });
+    });
+};
+
+exports.deleteService=(req,res)=>{
+    Price.destroy({ where: {
+            service: req.body.id_service
+        }}).then( deletedPrice => {
+            Service.destroy({ where: {
+                    id_service: req.body.id_service
+                }}).then(deletedService =>{
+                res.send({
+                    message: "Service Supprimé!"
+                });
+            }).catch(err =>{
+                res.status(500).send({
+                    message:err.message
+                });
+            });
+    })
+}
+
