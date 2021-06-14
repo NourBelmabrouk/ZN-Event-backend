@@ -75,6 +75,25 @@ exports.findServicesById = (req, res) => {
     });
 };
 
+exports.findServicesByServiceId = (req, res) => {
+    Service.findOne({
+        attributes: ['id_service','type', 'nom', 'adresse', 'code_postal', 'ville', 'Description','intervention' ,'surface', 'capacity','foodType','UserId'],
+        include: [{
+            model: Price,
+            where: { service : db.Sequelize.col('Service.id_service') },
+            attributes: ['morning', 'evening','full_day','night']
+        }],where: {
+            id_service: req.body.id_service
+        }
+    }).then(services => {
+        res.send(services);
+    }).catch(err =>{
+        res.status(500).send({
+            message:err.message
+        });
+    });
+};
+
 exports.deleteService=(req,res)=>{
     Price.destroy({ where: {
             service: req.body.id_service

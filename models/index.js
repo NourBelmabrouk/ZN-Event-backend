@@ -73,5 +73,7 @@ db.services.hasOne(db.commande, {foreignKey: 'service', targetKey: 'id_service'}
 db.commande.belongsTo(db.user,{foreignKey:'client',targetKey:'id'});
 db.user.hasOne(db.commande, {foreignKey: 'client', targetKey: 'id'});
 
+db.commande.belongsTo(db.user,{foreignKey:'fournisseur',targetKey:'id'});
+db.user.hasOne(db.commande, {foreignKey: 'fournisseur', targetKey: 'id'});
 
 module.exports = db;

@@ -10,7 +10,8 @@ exports.addCommande=(req,res)=>{
         isConfirmed:false,
         date: req.body.date,
         service: req.body.id_service,
-        client: req.body.client
+        client: req.body.client,
+        fournisseur:req.body.fournisseur
     })
         .then(service=>{
         res.send({
@@ -23,9 +24,10 @@ exports.addCommande=(req,res)=>{
     });
 }
 
+
 exports.findCommandeByClientId = (req, res) => {
     Commande.findAll({
-        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client' ],
+        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client' ,'fournisseur'],
         where: {
             client: req.body.client
         }
@@ -40,7 +42,7 @@ exports.findCommandeByClientId = (req, res) => {
 
 exports.findCommandeByServiceId = (req, res) => {
     Commande.findAll({
-        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client' ],
+        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client'  ,'fournisseur'],
         where: {
             service: req.body.id_service
         }
@@ -55,9 +57,11 @@ exports.findCommandeByServiceId = (req, res) => {
 
 exports.findAcceptedCommandes = (req, res) => {
     Commande.findAll({
-        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client' ],
+        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client'  ,'fournisseur'],
         where: {
-            isAccepted: true
+            fournisseur:req.body.fournisseur,
+            isAccepted: true,
+            isConfirmed: true
         }
     }).then(commandes => {
         res.send(commandes);
@@ -70,9 +74,11 @@ exports.findAcceptedCommandes = (req, res) => {
 
 exports.findNonAcceptedCommandes = (req, res) => {
     Commande.findAll({
-        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client' ],
+        attributes: ['id_commande','isAccepted', 'isConfirmed', 'description','price', 'numberOfGuests', 'date', 'service','client' ,'fournisseur' ],
         where: {
-            isAccepted: false
+            fournisseur:req.body.fournisseur,
+            isAccepted: false,
+            isConfirmed: true
         }
     }).then(commandes => {
         res.send(commandes);
@@ -85,8 +91,9 @@ exports.findNonAcceptedCommandes = (req, res) => {
 
 exports.findConfirmedCommande = (req, res) => {
     Commande.findAll({
-        attributes: ['id_commande','isAccepted', 'isConfirmed','description', 'price', 'numberOfGuests', 'date', 'service','client' ],
+        attributes: ['id_commande','isAccepted', 'isConfirmed','description', 'price', 'numberOfGuests', 'date', 'service','client' ,'fournisseur' ],
         where: {
+            client: req.body.client,
             isConfirmed: true
         }
     }).then(commandes => {
@@ -99,8 +106,9 @@ exports.findConfirmedCommande = (req, res) => {
 };
 exports.findNonConfirmedCommande = (req, res) => {
     Commande.findAll({
-        attributes: ['id_commande','isAccepted', 'isConfirmed','description', 'price', 'numberOfGuests', 'date', 'service','client' ],
+        attributes: ['id_commande','isAccepted', 'isConfirmed','description', 'price', 'numberOfGuests', 'date', 'service','client' ,'fournisseur' ],
         where: {
+            client: req.body.client,
             isConfirmed: false
         }
     }).then(commandes => {

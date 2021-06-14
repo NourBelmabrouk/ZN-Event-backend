@@ -13,10 +13,10 @@ module.exports=function (app) {
     app.post("/api/commande/findCommandeByServiceId",controller.findCommandeByServiceId);
     app.post("/api/commande/confirmCommande",controller.confirmCommande);
     app.post("/api/commande/acceptCommande",controller.acceptCommande);
-    app.get("/api/commande/findAcceptedCommandes",controller.findAcceptedCommandes);
-    app.get("/api/commande/findNonAcceptedCommandes",controller.findNonAcceptedCommandes);
-    app.get("/api/commande/findConfirmedCommande",controller.findConfirmedCommande);
-    app.get("/api/commande/findNonConfirmedCommande",controller.findNonConfirmedCommande);
+    app.post("/api/commande/findAcceptedCommandes",controller.findAcceptedCommandes);
+    app.post("/api/commande/findNonAcceptedCommandes",controller.findNonAcceptedCommandes);
+    app.post("/api/commande/findConfirmedCommande",controller.findConfirmedCommande);
+    app.post("/api/commande/findNonConfirmedCommande",controller.findNonConfirmedCommande);
     app.post("/api/commande/acceptCommande",controller.acceptCommande);
     app.post("/api/commande/confirmCommande",controller.confirmCommande);
     app.post("/api/commande/deleteCommande",controller.deleteCommande);
