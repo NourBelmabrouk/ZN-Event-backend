@@ -19,5 +19,6 @@ module.exports=function (app) {
     app.get("/api/commande/findNonConfirmedCommande",controller.findNonConfirmedCommande);
     app.post("/api/commande/acceptCommande",controller.acceptCommande);
     app.post("/api/commande/confirmCommande",controller.confirmCommande);
+    app.post("/api/commande/deleteCommande",controller.deleteCommande);
 
 }
